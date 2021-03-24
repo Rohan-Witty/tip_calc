@@ -85,6 +85,8 @@ class _TipCalcState extends State<TipCalc> {
                       ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text('Calculating Tip on $amt as $tip')));
                       _pushResults();
+                      _AlertDialog(context);
+
                     }
 
     },
@@ -95,6 +97,35 @@ class _TipCalcState extends State<TipCalc> {
 
     );
   }
+
+  void _AlertDialog(context){
+      // Create button
+      Widget okButton = ElevatedButton(
+        child: Text("OK"),
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+      );
+
+      // Create AlertDialog
+      AlertDialog alert = AlertDialog(
+        title: Text("Results"),
+        content: Text('Bill amount =  $amt \n'
+        'Tip amount = $tip \n'
+            'Total = ${amt+tip}'),
+        actions: [
+          okButton,
+        ],
+      );
+
+      // show the dialog
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return alert;
+        },
+      );
+    }
 
   void _pushResults(){
     Navigator.of(context).push(
